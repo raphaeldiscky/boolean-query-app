@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boolean Retrieval</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div
+      class="
+        d-flex
+        flex-column
+        min-vh-100
+        justify-content-center
+        align-items-center
+      "
+    >
+      <h1 class="text-center">Hasil dari Query Boolean</h1>
+      <h3><em>Inverted Index</em></h3>
+      <br />
+      <p class="text-center">
+        Terdapat {{len_docs}} dokumen terambil dalam waktu: {{time}}
+      </p>
+      <br />
+      <form method="POST" action="{{ url_for('upload') }}">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search here"
+            aria-label="Search here"
+            aria-describedby="basic-addon2"
+            name="query"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+      <br />
+      <div class="row container">
+        {% for key, value in dictionary.items() %}
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{key}}</h5>
+              <a
+                href="kompas-docs/{{key}}.txt"
+                target="_blank"
+                class="btn btn-dark"
+                >Download File</a
+              >
+              <h1>{{num_docs}}</h1>
+            </div>
+          </div>
+        </div>
+        <br />
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
