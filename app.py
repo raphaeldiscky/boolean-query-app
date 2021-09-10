@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # get stopwords from file
 stop_words = []
-with open("stopword-list.txt", "r") as file:
+with open("static\stopword-list.txt", "r") as file:
     s = file.read().replace("\n", " ")
 stop_words = s.split()
 
@@ -50,9 +50,9 @@ def upload():
     )
 
 
-@app.route("/kompas-docs/<file_name>")
+@app.route("/static/kompas-docs/<file_name>")
 def download_file(file_name):
-    path = "kompas-docs/" + file_name
+    path = "static/kompas-docs/" + file_name
     return send_file(path, as_attachment=True)
 
 

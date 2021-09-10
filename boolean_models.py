@@ -10,7 +10,7 @@ def inverted_index(stop_words):
 
     for i in range(0, 50):
         doc_no = i
-        with open("kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
+        with open("static\kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
             next(file)
             s = file.read().replace("\n", " ").translate(translator)
 
