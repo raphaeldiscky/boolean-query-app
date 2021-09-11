@@ -42,22 +42,23 @@ def postfix(infix_tokens):
     return output
 
 
-def AND_op(word1, word2):
+def and_operator(word1, word2):
     if (word1) and (word2):
         return set(word1).intersection(word2)
     else:
         return set()
 
 
-def OR_op(word1, word2):
+def or_operator(word1, word2):
     return set(word1).union(word2)
 
 
-def NOT_op(a, doc_ids):
+def not_operator(a, doc_ids):
     return set(doc_ids).symmetric_difference(a)
 
 
 def process_query(q, dictionary_inverted):
+    q = q.replace("$", "")
     q = q.replace("(", "( ")
     q = q.replace(")", " )")
     q = q.split(" ")
@@ -82,13 +83,13 @@ def process_query(q, dictionary_inverted):
         elif i == "AND":
             a = results_stack.pop()
             b = results_stack.pop()
-            results_stack.append(AND_op(a, b))
+            results_stack.append(and_operator(a, b))
         elif i == "OR":
             a = results_stack.pop()
             b = results_stack.pop()
-            results_stack.append(OR_op(a, b))
+            results_stack.append(or_operator(a, b))
         elif i == "NOT":
             a = results_stack.pop()
-            results_stack.append(NOT_op(a, doc_ids))
+            results_stack.append(not_operator(a, doc_ids))
 
     return results_stack.pop()
