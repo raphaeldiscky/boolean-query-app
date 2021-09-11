@@ -66,13 +66,11 @@ def upload():
     start = time.time()
     query = request.form["query"]
     if "$" in query:
-        print("user term-doc")
         result = query_processing.process_query(query, dictionary_term_doc_incidence)
         documents = documents_ret_term_doc_incidence(result)
     else:
         result = query_processing.process_query(query, dictionary_inverted)
         documents = documents_ret_inverted_index(result)
-    print(result)
     end = time.time()
     times = end - start
     return render_template(

@@ -8,7 +8,7 @@ def inverted_index(stop_words):
     exclist = string.punctuation + string.digits
     translator = str.maketrans(exclist, " " * len(exclist))
 
-    for i in range(0, 50):
+    for i in range(0, 2008):
         doc_no = i
         with open("static\kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
             next(file)
@@ -43,7 +43,7 @@ def term_doc_incidence(stop_words):
     exclist = string.punctuation + string.digits
     translator = str.maketrans(exclist, " " * len(exclist))
 
-    for i in range(0, 50):
+    for i in range(0, 2008):
         doc_no = i
         with open("static\kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
             next(file)
@@ -68,5 +68,4 @@ def term_doc_incidence(stop_words):
                 dictionary[term].append(1)
             else:
                 dictionary[term].append(0)
-    print(dictionary)
     return dictionary, documents
