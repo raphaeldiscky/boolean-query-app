@@ -91,5 +91,4 @@ def process_query(q, dictionary):
         elif i == "NOT":
             a = results_stack.pop()
             results_stack.append(not_operator(a, doc_ids))
-
     return results_stack.pop()

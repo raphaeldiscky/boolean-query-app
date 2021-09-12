@@ -1,14 +1,16 @@
 import string
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
 
-def inverted_index(stop_words):
+def inverted_index():
     dictionary = {}
     documents = {}
 
     exclist = string.punctuation + string.digits
     translator = str.maketrans(exclist, " " * len(exclist))
 
-    for i in range(0, 2008):
+    for i in range(0, 50):
         doc_no = i
         with open("static\kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
             next(file)
@@ -19,8 +21,9 @@ def inverted_index(stop_words):
         documents[key].append(s)
 
         # lowercase and remove stopwords
+        set_stop_words = set(stopwords.words("indonesian"))
         s = s.lower()
-        s = [words if words not in stop_words else "" for words in s.split(" ")]
+        s = [words if words not in set_stop_words else "" for words in s.split(" ")]
         doc = []
         doc = list(filter(None, s))
 
@@ -35,7 +38,7 @@ def inverted_index(stop_words):
     return dictionary, documents
 
 
-def term_doc_incidence(stop_words):
+def term_doc_incidence():
     dictionary = {}
     documents = {}
     docs = []
@@ -43,29 +46,30 @@ def term_doc_incidence(stop_words):
     exclist = string.punctuation + string.digits
     translator = str.maketrans(exclist, " " * len(exclist))
 
-    for i in range(0, 2008):
+    for i in range(0, 50):
         doc_no = i
         with open("static\kompas-docs\kompas-" + str(doc_no) + ".txt", "r") as file:
             next(file)
-            s = file.read().replace("\n", " ").translate(translator)
+            s = file.read().replace("\n", " ").translate(translator).lower()
+            docs.append(s)
 
         key = "kompas-" + str(doc_no)
         documents.setdefault(key, [])
         documents[key].append(s)  # {'kompas-0': [''], 'kompas-1': ['']}
-        docs.append(s)
 
-        # lowercase and remove stopwords
-        s = s.lower()
-        s = [words if words not in stop_words else "" for words in s.split(" ")]
-        terms = []
-        terms = list(filter(None, s))  # ['','','']
+    # tokenize and stop words
+    for i in docs:
+        text_tokens = word_tokenize(i)
+        set_stop_words = set(stopwords.words("indonesian"))
+        unique_terms = {word for word in text_tokens if not word in set_stop_words}
 
-    # construct docs-term matrix
-    for term in terms:
-        dictionary.setdefault(term, [])
-        for doc in docs:
-            if term in doc:
-                dictionary[term].append(1)
-            else:
-                dictionary[term].append(0)
+        # construct term-doc incidence matrix
+        for term in unique_terms:
+            dictionary[term] = []
+
+            for doc in docs:
+                if term in doc:
+                    dictionary[term].append(1)
+                else:
+                    dictionary[term].append(0)
     return dictionary, documents

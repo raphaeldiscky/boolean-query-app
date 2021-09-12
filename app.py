@@ -12,8 +12,8 @@ with open("static\stopword-list.txt", "r") as file:
 stop_words = s.split()
 
 # get inverted index and term doc incidence matrix
-dictionary_inverted, docu = boolean_models.inverted_index(stop_words)
-dictionary_term_doc_incidence, docu = boolean_models.term_doc_incidence(stop_words)
+dictionary_inverted, docu = boolean_models.inverted_index()
+dictionary_term_doc_incidence, docu = boolean_models.term_doc_incidence()
 
 # return relevant document retrieved from inverted index
 def documents_ret_inverted_index(a):
@@ -28,8 +28,9 @@ def documents_ret_inverted_index(a):
     return documents
 
 
-def remove_values_from_list(list, val):
-    return [value for value in list if value != val]
+def remove_item_inside_list(list, item):
+    res = [i for i in list if i != item]
+    return res
 
 
 # return relevant document retrieved from term doc incidence matrix
@@ -40,8 +41,10 @@ def documents_ret_term_doc_incidence(a):
         if a[i] == 1:
             a.append(i)
 
-    remove_values_from_list(a, 0)
-    remove_values_from_list(a, 1)
+    b = remove_item_inside_list(a, 0)
+    c = remove_item_inside_list(b, 1)
+    a = c
+    print(a)
 
     if a:
         for i in a:
@@ -96,6 +99,11 @@ def page_not_found(e):
 @app.errorhandler(405)
 def method_not_allowed(e):
     return render_template("405.html"), 405
+
+
+@app.errorhandler(500)
+def method_not_allowed(e):
+    return render_template("500.html"), 500
 
 
 if __name__ == "__main__":
