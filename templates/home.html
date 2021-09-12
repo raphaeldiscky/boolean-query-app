@@ -27,6 +27,14 @@
       <div class="text-center container">
         <p>Masukkan query dengan term bebas dan operator AND, OR, NOT, (, )</p>
         <p>Misalkan "hewan AND manusia", "tidur AND (orang OR mandi)"</p>
+        <p>
+          Secara default query diproses menggunakan model <b>Inverted Index</b>
+        </p>
+        <p>
+          Jika ingin menggunakan model
+          <b>Term-Documents Incidence Matrix</b> bisa menambahkan
+          <b>"$"</b> pada query
+        </p>
       </div>
       <br />
       <form method="POST" action="{{ url_for('upload') }}">
@@ -34,8 +42,8 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search here"
-            aria-label="Search here"
+            placeholder="Input your query here"
+            aria-label="Input your query here"
             aria-describedby="basic-addon2"
             name="query"
           />

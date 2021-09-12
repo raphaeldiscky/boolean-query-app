@@ -18,7 +18,7 @@ def inverted_index(stop_words):
         documents.setdefault(key, [])
         documents[key].append(s)
 
-        # lowecase and remove stopwords
+        # lowercase and remove stopwords
         s = s.lower()
         s = [words if words not in stop_words else "" for words in s.split(" ")]
         doc = []
@@ -54,13 +54,13 @@ def term_doc_incidence(stop_words):
         documents[key].append(s)  # {'kompas-0': [''], 'kompas-1': ['']}
         docs.append(s)
 
-        # lowecase and remove stopwords
+        # lowercase and remove stopwords
         s = s.lower()
         s = [words if words not in stop_words else "" for words in s.split(" ")]
         terms = []
         terms = list(filter(None, s))  # ['','','']
 
-        # construct docs-term matrix
+    # construct docs-term matrix
     for term in terms:
         dictionary.setdefault(term, [])
         for doc in docs:

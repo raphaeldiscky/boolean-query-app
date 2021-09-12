@@ -1,8 +1,3 @@
-doc_ids = []
-for i in range(0, 2008):
-    doc_ids.append(i)
-
-
 def postfix(infix_tokens):
     precedence = {}
     precedence["NOT"] = 3
@@ -57,7 +52,12 @@ def not_operator(a, doc_ids):
     return set(doc_ids).symmetric_difference(a)
 
 
-def process_query(q, dictionary_inverted):
+doc_ids = []
+for i in range(0, 2008):
+    doc_ids.append(i)
+
+
+def process_query(q, dictionary):
     q = q.replace("$", "")
     q = q.replace("(", "( ")
     q = q.replace(")", " )")
@@ -78,7 +78,7 @@ def process_query(q, dictionary_inverted):
             i = i.replace("(", " ")
             i = i.replace(")", " ")
             i = i.lower()
-            i = dictionary_inverted.get(i)
+            i = dictionary.get(i)
             results_stack.append(i)
         elif i == "AND":
             a = results_stack.pop()
