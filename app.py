@@ -5,12 +5,6 @@ import query_processing
 
 app = Flask(__name__)
 
-# get stopwords from file
-stop_words = []
-with open("static\stopword-list.txt", "r") as file:
-    s = file.read().replace("\n", " ")
-stop_words = s.split()
-
 # get inverted index and term doc incidence matrix
 dictionary_inverted, docu = boolean_models.inverted_index()
 dictionary_term_doc_incidence, docu = boolean_models.term_doc_incidence()
