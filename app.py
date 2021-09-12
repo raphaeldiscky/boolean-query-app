@@ -11,7 +11,7 @@ with open("static\stopword-list.txt", "r") as file:
     s = file.read().replace("\n", " ")
 stop_words = s.split()
 
-# get inverted_index
+# get inverted index and term doc incidence matrix
 dictionary_inverted, docu = boolean_models.inverted_index(stop_words)
 dictionary_term_doc_incidence, docu = boolean_models.term_doc_incidence(stop_words)
 
